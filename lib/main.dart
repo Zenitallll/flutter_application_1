@@ -1,5 +1,8 @@
+import 'package:estron/latihan8v2.dart';
+import 'package:estron/pages/validasi.dart';
+import 'package:estron/tugas7.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/login_screen.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
        
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const LoginScreen(),
+      home: const Tugas7(),
     );
   }
 }
