@@ -9,7 +9,7 @@ void main() {
 // ==================================================
 
 List<String> kategori = [
-  'Buah-buahan',
+  '',
   'Sayuran',
   'Elektronik',
   'Pakaian Pria',
@@ -134,7 +134,7 @@ class HomePage extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Aplikasi Kategori Toko'),
+          title: const Text('Toko Askur'),
           bottom: const TabBar(
             tabs: [
               Tab(text: 'List'),
