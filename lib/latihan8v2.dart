@@ -1,5 +1,6 @@
 import 'package:estron/latihan8.dart';
 import 'package:estron/pages/login_screen.dart';
+import 'package:estron/tugas7.dart';
 import 'package:flutter/material.dart';
 
 
@@ -18,13 +19,13 @@ class _Latihan8v2State extends State<Latihan8v2> {
   // Daftar judul untuk AppBar berdasarkan halaman aktif
   final List<String> _titles = [
     'Halaman Latihan bottom navigator',
-    'Halaman login',
+    'Halaman Tugas 7',
   ];
 
   // Daftar widget halaman tujuan
   final List<Widget> _pages = [
     const Latihan8(),
-    const LoginScreen(),
+    const Tugas7(),
   ];
 
   // Fungsi untuk mengubah halaman aktif
