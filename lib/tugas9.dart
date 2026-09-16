@@ -7,7 +7,7 @@ void main() {
 
 
 List<String> kategori = [
-  '',
+  'Buah-buahan',
   'Sayuran',
   'Elektronik',
   'Pakaian Pria',
