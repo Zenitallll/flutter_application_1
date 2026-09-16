@@ -78,7 +78,7 @@ class _Latihan8v2State extends State<Latihan8v2> {
             // Menu 2: Pengaturan
             ListTile(
               leading: const Icon(Icons.login),
-              title: const Text('Login Screen'),
+              title: const Text('Tugas 7'),
               selected: _selectedIndex == 1,
               onTap: () {
                 _onItemTapped(1);
