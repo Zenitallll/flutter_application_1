@@ -4,9 +4,7 @@ void main() {
   runApp(const tugas9());
 }
 
-// ==================================================
-// 1. LIST <STRING>
-// ==================================================
+
 
 List<String> kategori = [
   '',
@@ -21,9 +19,7 @@ List<String> kategori = [
   'Minuman',
 ];
 
-// ==================================================
-// 2. LIST <MAP<String, dynamic>>
-// ==================================================
+
 
 List<Map<String, dynamic>> kategoriMap = [
   {'nama': 'Buah-buahan', 'icon': Icons.apple},
@@ -38,9 +34,7 @@ List<Map<String, dynamic>> kategoriMap = [
   {'nama': 'Minuman', 'icon': Icons.local_drink},
 ];
 
-// ==================================================
-// 3. MODEL
-// ==================================================
+
 
 class Produk {
   String nama;
@@ -50,7 +44,7 @@ class Produk {
   Produk(this.nama, this.deskripsi, this.gambar);
 }
 
-// 10 DATA KATEGORI 1: BUAH-BUAHAN
+
 
 List<Produk> produk = [
   Produk(
@@ -105,9 +99,7 @@ List<Produk> produk = [
   ),
 ];
 
-// ==================================================
-// APP
-// ==================================================
+
 
 class tugas9 extends StatelessWidget {
   const tugas9({super.key});
@@ -121,9 +113,7 @@ class tugas9 extends StatelessWidget {
   }
 }
 
-// ==================================================
-// HOME
-// ==================================================
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -156,9 +146,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// ==================================================
-// HALAMAN 1 - LIST
-// ==================================================
+
 
 class HalamanList extends StatelessWidget {
   const HalamanList({super.key});
@@ -176,9 +164,7 @@ class HalamanList extends StatelessWidget {
   }
 }
 
-// ==================================================
-// HALAMAN 2 - MAP
-// ==================================================
+
 
 class HalamanMap extends StatelessWidget {
   const HalamanMap({super.key});
@@ -197,9 +183,7 @@ class HalamanMap extends StatelessWidget {
   }
 }
 
-// ==================================================
-// HALAMAN 3 - MODEL
-// ==================================================
+
 
 class HalamanModel extends StatelessWidget {
   const HalamanModel({super.key});
@@ -215,9 +199,7 @@ class HalamanModel extends StatelessWidget {
   }
 }
 
-// ==================================================
-// LIST PRODUK
-// ==================================================
+
 
 class ListProduk extends StatelessWidget {
   final Produk produk;
