@@ -1,330 +1,187 @@
-  import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:estron/navigator.dart';
+import 'package:estron/service/shared_preference.dart';
 
-  class LoginScreen extends StatefulWidget {
-    const LoginScreen({super.key});
 
-    @override
-    State<LoginScreen> createState() => _LoginScreenState();
-  }
+class LoginScreenDay15 extends StatefulWidget {
+  const LoginScreenDay15({super.key});
 
-  class _LoginScreenState extends State<LoginScreen> {
-    bool hidePassword = true;
+  @override
+  State<LoginScreenDay15> createState() => _LoginScreenDay15State();
+}
 
-    @override
-    Widget build(BuildContext context) {
-      return Theme(
-        data: Theme.of(context).copyWith(
-          textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Gilroy'),
-          inputDecorationTheme: const InputDecorationTheme(
-            hintStyle: TextStyle(
-              fontFamily: 'Gilroy',
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-        ),
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          body: SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 27),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 25),
+class _LoginScreenDay15State extends State<LoginScreenDay15> {
+  final _formKey = GlobalKey<FormState>();
 
-                  Row(
-                    children: [
-                      const Icon(Icons.arrow_back_ios_new, size: 20),
-                      const SizedBox(width: 30),
-                      const Text(
-                        "Login",
-                        style: TextStyle(
-                          fontFamily: 'Gilroy',
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
+  final emailController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // =========================
+                    // ICON
+                    // =========================
+                    const Icon(Icons.lock, size: 80, color: Colors.blue),
+
+                    const SizedBox(height: 24),
+
+                    // =========================
+                    // TITLE
+                    // =========================
+                    const Text(
+                      'Login',
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    const SizedBox(height: 8),
+
+                    // =========================
+                    // SUBTITLE
+                    // =========================
+                    const Text(
+                      'Silakan masuk ke akun Anda',
+                      style: TextStyle(fontSize: 16, color: Colors.grey),
+                    ),
+
+                    const SizedBox(height: 32),
+
+                    // =========================
+                    // EMAIL
+                    // =========================
+                    TextFormField(
+                      controller: emailController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Email wajib diisi';
+                        } else if (!value.contains('@')) {
+                          return 'Format email tidak valid';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        hintText: 'Masukkan email',
+                        prefixIcon: const Icon(Icons.email),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 40),
-
-                  const Text(
-                    "Welcome Back",
-                    style: TextStyle(
-                      fontFamily: 'Gilroy',
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
                     ),
-                  ),
 
-                  const SizedBox(height: 17),
+                    const SizedBox(height: 16),
 
-                  const Text(
-                    "Sign In to your account",
-                    style: TextStyle(
-                      fontFamily: 'Gilroy',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.grey,
-                    ),
-                  ),
-
-                  const SizedBox(height: 42),
-
-                  const Text(
-                    "Email Address",
-                    style: TextStyle(
-                      fontFamily: 'Gilroy',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.grey,
-                    ),
-                  ),
-
-                  const SizedBox(height: 15),
-
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: "askararrafi@gmail.com",
-                      hintStyle: const TextStyle(
-                        fontFamily: 'Gilroy',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w300,
-                        color: Color(0xff555555),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(28),
+                    // =========================
+                    // PASSWORD
+                    // =========================
+                    TextFormField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        hintText: 'Masukkan password',
+                        prefixIcon: const Icon(Icons.lock),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
                     ),
-                  ),
 
-                  const SizedBox(height: 22),
+                    const SizedBox(height: 24),
 
-                  const Text(
-                    "Password",
-                    style: TextStyle(
-                      fontFamily: 'Gilroy',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.grey,
-                    ),
-                  ),
-
-                  const SizedBox(height: 15),
-
-                  TextField(
-                    obscureText: hidePassword,
-                    decoration: InputDecoration(
-                      hintText: "••••••••••••••",
-                      hintStyle: const TextStyle(
-                        fontFamily: 'Gilroy',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w300,
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          hidePassword
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility_outlined,
+                    // =========================
+                    // BUTTON
+                    // =========================
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          // textStyle: TextStyle(color: Colors.white),
                         ),
                         onPressed: () {
-                          setState(() {
-                            hidePassword = !hidePassword;
-                          });
+                          if (_formKey.currentState!.validate()) {
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: Text('Data '),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Email: ${emailController.text}'),
+                                  ],
+                                ), // Column
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      context.pop();
+                                      PreferenceHandler.setLogin(true);
+                                      context.push(
+                                        HalamanTerimaKasih(
+                                          email: emailController.text,
+                                        ),
+                                      );
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //     builder: (context) =>
+                                      //         HalamanTerimaKasih(
+                                      //           email: emailController.text,
+                                      //         ),
+                                      //   ), // MaterialPageRoute
+                                      // );
+                                    },
+                                    child: Text('Lanjutkan'),
+                                  ), // TextButtontton
+                                ],
+                              ), // AlertDialog
+                            );
+                          }
                         },
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(28),
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 14),
-
-                  const Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "Forgot Password?",
-                      style: TextStyle(
-                        fontFamily: 'Gilroy',
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xffF28B4B),
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 23),
-
-                  SizedBox(
-                    width: double.infinity,
-                    height: 56,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xff3047BA),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: const Text(
-                        "Login",
-                        style: TextStyle(
-                          fontFamily: 'Gilroy',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                        child: const Text(
+                          'Login',
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
-                  ),
-
-                  const SizedBox(height: 15),
-
-                  Center(
-                    child: RichText(
-                      text: const TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "Don't have an account?  ",
-                            style: TextStyle(
-                              fontFamily: 'Gilroy',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w300,
-                              color: Color(0xffA9A9A9),
-                            ),
-                          ),
-                          TextSpan(
-                            text: "Sign Up",
-                            style: TextStyle(
-                              fontFamily: 'Gilroy',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xffEA9459),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 30),
-
-                  const Center(
-                    child: Text(
-                      "Or Sign In With",
-                      style: TextStyle(
-                        fontFamily: 'Gilroy',
-                        fontSize: 12,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 25),
-
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xffFAFAFA),
-                            elevation: 0,
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset(
-                                "assets/icons/btnSigninwithGoogle.png",
-                                width: 20,
-                                height: 20,
-                              ),
-                              const SizedBox(width: 8),
-                              const Text(
-                                "Google",
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy',
-                                  fontWeight: FontWeight.w300,
-                                  color: Color(0xff333333),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(width: 15),
-
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xffFAFAFA),
-                            elevation: 0,
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset(
-                                "assets/icons/btnSigninwithFb.png",
-                                width: 20,
-                                height: 20,
-                              ),
-                              const SizedBox(width: 8),
-                              const Text(
-                                "Facebook",
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy',
-                                  fontWeight: FontWeight.w300,
-                                  color: Color(0xff333333),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 22),
-
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: RichText(
-                      text: const TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "Don't have an account?  ",
-                            style: TextStyle(
-                              fontFamily: 'Gilroy',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w300,
-                              color: Color(0xffA9A9A9),
-                            ),
-                          ),
-                          TextSpan(
-                            text: "Join Us",
-                            style: TextStyle(
-                              fontFamily: 'Gilroy',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xffEA9459),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 30),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
         ),
-      );
-    }
+      ),
+    );
   }
+}
+
+class HalamanTerimaKasih extends StatelessWidget {
+  final String email;
+  const HalamanTerimaKasih({super.key, required this.email});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Konfirmasi')),
+      body: Center(
+        child: Text(
+          'Terima kasih, $email',
+          style: TextStyle(fontSize: 18),
+          textAlign: TextAlign.center,
+        ), // Text
+      ), // Center
+    ); // Scaffold
+  }
+}

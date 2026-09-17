@@ -30,9 +30,7 @@ class _Tugas7State extends State<Tugas7> {
         brightness: modeGelap ? Brightness.dark : Brightness.light,
       ),
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Tugas 7"),
-        ),
+        appBar: AppBar(title: const Text("Tugas 7")),
 
         // DRAWER
         drawer: Drawer(
@@ -41,10 +39,7 @@ class _Tugas7State extends State<Tugas7> {
               const DrawerHeader(
                 child: Text(
                   "Menu Input",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
               ),
 
@@ -97,14 +92,10 @@ class _Tugas7State extends State<Tugas7> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               // CHECKBOX
               const Text(
                 "Syarat & Ketentuan",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
 
               CheckboxListTile(
@@ -124,9 +115,7 @@ class _Tugas7State extends State<Tugas7> {
                 setuju
                     ? "Lanjutkan pendaftaran diperbolehkan"
                     : "Anda belum bisa melanjutkan",
-                style: TextStyle(
-                  color: setuju ? Colors.green : Colors.red,
-                ),
+                style: TextStyle(color: setuju ? Colors.green : Colors.red),
               ),
 
               const SizedBox(height: 30),
@@ -134,10 +123,7 @@ class _Tugas7State extends State<Tugas7> {
               // SWITCH
               const Text(
                 "Mode Gelap",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
 
               SwitchListTile(
@@ -151,21 +137,14 @@ class _Tugas7State extends State<Tugas7> {
                 },
               ),
 
-              Text(
-                modeGelap
-                    ? "Mode Gelap Aktif"
-                    : "Mode Terang Aktif",
-              ),
+              Text(modeGelap ? "Mode Gelap Aktif" : "Mode Terang Aktif"),
 
               const SizedBox(height: 30),
 
               // DROPDOWN
               const Text(
                 "Pilih Kategori Produk",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
 
               const SizedBox(height: 10),
@@ -181,18 +160,9 @@ class _Tugas7State extends State<Tugas7> {
                     value: "Elektronik",
                     child: Text("Elektronik"),
                   ),
-                  DropdownMenuItem(
-                    value: "Pakaian",
-                    child: Text("Pakaian"),
-                  ),
-                  DropdownMenuItem(
-                    value: "Makanan",
-                    child: Text("Makanan"),
-                  ),
-                  DropdownMenuItem(
-                    value: "Lainnya",
-                    child: Text("Lainnya"),
-                  ),
+                  DropdownMenuItem(value: "Pakaian", child: Text("Pakaian")),
+                  DropdownMenuItem(value: "Makanan", child: Text("Makanan")),
+                  DropdownMenuItem(value: "Lainnya", child: Text("Lainnya")),
                 ],
                 onChanged: (value) {
                   setState(() {
@@ -214,10 +184,7 @@ class _Tugas7State extends State<Tugas7> {
               // DATE PICKER
               const Text(
                 "Pilih Tanggal Lahir",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
 
               const SizedBox(height: 10),
@@ -252,10 +219,7 @@ class _Tugas7State extends State<Tugas7> {
               // TIME PICKER
               const Text(
                 "Atur Pengingat",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
 
               const SizedBox(height: 10),
@@ -264,10 +228,7 @@ class _Tugas7State extends State<Tugas7> {
                 onPressed: () async {
                   TimeOfDay? hasil = await showTimePicker(
                     context: context,
-                    initialTime: const TimeOfDay(
-                      hour: 7,
-                      minute: 30,
-                    ),
+                    initialTime: const TimeOfDay(hour: 7, minute: 30),
                   );
 
                   if (hasil != null) {
