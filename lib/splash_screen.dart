@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:estron/service/shared_preference.dart';
 import 'package:estron/pages/login_screen.dart';
 import 'package:estron/navigator.dart';
-
+//splash screen
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
