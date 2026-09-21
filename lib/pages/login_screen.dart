@@ -1,7 +1,7 @@
+import 'package:estron/db/models/database/db_helper.dart';
+import 'package:estron/db/models/user_login_model.dart';
+import 'package:estron/latihan_localstorage/home.dart';
 import 'package:flutter/material.dart';
-import 'package:estron/navigator.dart';
-import 'package:estron/service/shared_preference.dart';
-
 
 class LoginScreenDay15 extends StatefulWidget {
   const LoginScreenDay15({super.key});
@@ -11,6 +11,64 @@ class LoginScreenDay15 extends StatefulWidget {
 }
 
 class _LoginScreenDay15State extends State<LoginScreenDay15> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final userController = TextEditingController();
+  final passController = TextEditingController();
+
+  void register() async {
+    final user = userController.text.trim();
+    final pass = passController.text;
+
+    if (user.isEmpty || pass.isEmpty) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Isi semua field!')));
+      return;
+    }
+
+    final pengguna = UserModelSQL(email: user, password: pass);
+
+    bool success = await DBHelper().registerUser(pengguna);
+
+    if (!mounted) return; // Menghindari linter warning: 'Don't use BuildContext across async gaps'
+
+    if (success) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Akun berhasil dibuat')));
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Email sudah terdaftar!')));
+    }
+  }
+
+  void login() async {
+    final user = userController.text.trim();
+    final pass = passController.text;
+
+    if (user.isEmpty || pass.isEmpty) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Login anda berhasil')));
+      return;
+    }
+
+    final pengguna = await DBHelper().loginUser(user, pass);
+
+    if (!mounted) return; // Menghindari linter warning penggunaan BuildContext
+
+    if (pengguna != null) {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => const Home()),
+        (route) => false,
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Login gagal! email atau Password salah.'),
+        ),
+      );
+    }
+  }
+
   final _formKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController();
@@ -87,6 +145,7 @@ class _LoginScreenDay15State extends State<LoginScreenDay15> {
                     // PASSWORD
                     // =========================
                     TextFormField(
+                      controller: passController,
                       obscureText: true,
                       decoration: InputDecoration(
                         labelText: 'Password',
@@ -99,63 +158,81 @@ class _LoginScreenDay15State extends State<LoginScreenDay15> {
                     ),
 
                     const SizedBox(height: 24),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          login();
+                        }
+                      },
+                      child: Text('LOGIN'),
+                    ),
+
+                    const SizedBox(height: 24),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          register();
+                        }
+                      },
+                      child: Text('REGISTER'),
+                    ),
 
                     // =========================
                     // BUTTON
                     // =========================
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
-                          // textStyle: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            showDialog(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                title: Text('Data '),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Email: ${emailController.text}'),
-                                  ],
-                                ), // Column
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      context.pop();
-                                      PreferenceHandler.setLogin(true);
-                                      context.push(
-                                        HalamanTerimaKasih(
-                                          email: emailController.text,
-                                        ),
-                                      );
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) =>
-                                      //         HalamanTerimaKasih(
-                                      //           email: emailController.text,
-                                      //         ),
-                                      //   ), // MaterialPageRoute
-                                      // );
-                                    },
-                                    child: Text('Lanjutkan'),
-                                  ), // TextButtontton
-                                ],
-                              ), // AlertDialog
-                            );
-                          }
-                        },
-                        child: const Text(
-                          'Login',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
+                    // SizedBox(
+                    //   width: double.infinity,
+                    //   child: ElevatedButton(
+                    //     style: ElevatedButton.styleFrom(
+                    //       backgroundColor: Colors.red,
+                    //       // textStyle: TextStyle(color: Colors.white),
+                    //     ),
+                    //     onPressed: () {
+                    //       if (_formKey.currentState!.validate()) {
+                    //         showDialog(
+                    //           context: context,
+                    //           builder: (_) => AlertDialog(
+                    //             title: Text('Data '),
+                    //             content: Column(
+                    //               mainAxisSize: MainAxisSize.min,
+                    //               crossAxisAlignment: CrossAxisAlignment.start,
+                    //               children: [
+                    //                 Text('Email: ${emailController.text}'),
+                    //               ],
+                    //             ), // Column
+                    //             actions: [
+                    //               TextButton(
+                    //                 onPressed: () {
+                    //                   context.pop();
+                    //                   PreferenceHandler.setLogin(true);
+                    //                   context.push(
+                    //                     HalamanTerimaKasih(
+                    //                       email: emailController.text,
+                    //                     ),
+                    //                   );
+                    //                   // Navigator.push(
+                    //                   //   context,
+                    //                   //   MaterialPageRoute(
+                    //                   //     builder: (context) =>
+                    //                   //         HalamanTerimaKasih(
+                    //                   //           email: emailController.text,
+                    //                   //         ),
+                    //                   //   ), // MaterialPageRoute
+                    //                   // );
+                    //                 },
+                    //                 child: Text('Lanjutkan'),
+                    //               ), // TextButtontton
+                    //             ],
+                    //           ), // AlertDialog
+                    //         );
+                    //       }
+                    //     },
+                    //     child: const Text(
+                    //       'Login',
+                    //       style: TextStyle(color: Colors.white),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

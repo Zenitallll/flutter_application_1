@@ -1,5 +1,7 @@
+import 'package:estron/db/models/database/screen.dart';
 import 'package:estron/latihan8.dart';
 import 'package:estron/latihan8v2.dart';
+import 'package:estron/pages/login_screen.dart';
 import 'package:estron/pages/validasi.dart';
 import 'package:estron/service/shared_preference.dart';
 import 'package:estron/splash_screen.dart';
@@ -10,7 +12,7 @@ import 'package:estron/tugas9.dart';
 
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();  
   await PreferenceHandler.init();
   runApp(const MyApp());
 }
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
        
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const SplashScreen(),
+      home: const screen(),
     );
   }
 }
